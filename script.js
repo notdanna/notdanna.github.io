@@ -111,7 +111,7 @@ let countdown;
 
 // Lógica del temporizador
 startButton.addEventListener('click', () => {
-    let timeLeft = 3; // 3 minutos en segundos
+    let timeLeft = 3 * 60; // 3 minutos en segundos
     counterDisplay.textContent = formatTime(timeLeft);
     
     countdown = setInterval(() => {
