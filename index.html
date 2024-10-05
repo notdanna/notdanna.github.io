@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Damian's Personal Page</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+    </head>
+    
+<body>
+    <canvas id="networkCanvas"></canvas> <!-- Canvas para el fondo animado -->
+
+    <!-- Envuelve todo el contenido que desaparecerá en esta sección -->
+    <div class="content-wrapper">
+        <div class="container">
+            <!-- Título y cards -->
+            <div class="header-left">
+                <h1>Hola, soy <span>Damián</span></h1><p>Fan del OpenSource</p>
+                <p>Entusiasta | Creativo | Detallista</p>
+                
+
+            <div class="info-left">
+                <div class="section card">
+                    <h2>Sobre mí</h2>
+                    <p>
+                        Soy egresado del CECyT 8 "Narciso Bassols" del IPN. En este momento, estoy enfocado en aprender nuevas tecnologías y mejorar mis habilidades en el uso de contenedores y servicios de Linux.
+                    </p>
+                </div>
+                <div class="section card">
+                    <h2>Habilidades</h2>
+                    <ul>
+                        <li>HTML, CSS, JavaScript, TypeScript</li>
+                        <li>Node.js, Python, C++</li>
+                        <li>PostgreSQL, MySQL</li>
+                        <li>Bash & Linux </li>
+                        <li>Docker, Git</li>
+                        <li>CNC</li>
+                    </ul>
+                </div>
+                <div class="section card">
+                    <h2>Proyectos</h2>
+                    <ul>
+                        <li><strong>Cálculo de series:</strong> Una calculadora inteligente para resolver series de cualquier tipo en Python e IA.</li>
+                        <li><strong>Analizador sintáctico:</strong> Se diseñó una gramatica para el manejo de lenguaje de Java usando AFD.</li>
+                        <li><strong>Servicio de administración de libros:</strong> Espacio para el manejo de libros/mangas/comics en la nube hecho con Java, Docker y SQLite.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="image-right">
+            <img src="/img/socialm.png" alt="Imagen descriptiva">
+        </div>
+    </div>
+
+    <!-- Contador y botón de inicio -->
+    <div class="counter-container">
+        <div id="counter-display">3:00</div>
+        <button id="start-button">Start Timer</button>
+    </div>
+    </div>
+
+    <!-- Mensaje de "Gracias" con partículas e imagen -->
+    <div id="thank-you-message" style="display: none;">
+        <h1>Gracias</h1>
+        <img id="thank-you-image" src="/img/anime.gif" alt="Gracias Imagen"> <!-- Imagen que aparecerá -->
+    </div>
+
+    <script src="script.js"></script> <!-- Lógica del fondo animado con D3.js y del temporizador -->
+</body>
+</html>

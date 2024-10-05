@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Arial', sans-serif;
+    background: #f7f3f7; /* Fondo claro */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#networkCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background: radial-gradient(circle at center, #0B0A10, #13121C, #111019);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px;  /* Aumenta el padding para dar más espacio */
+    max-width: 1000px;  /* Se expande un poco más el ancho */
+    z-index: 10;  /* Asegura que el contenido esté por encima del fondo */
+}
+
+.header-left h1 {
+    font-size: 70px;  /* Aumenta el tamaño del título */
+    color: #7E57C2;
+    margin-bottom: 20px;
+}
+
+.header-left h1 span {
+    color: #F48FB1;  /* Color del texto en rosa */
+}
+
+.header-left p {
+    font-size: 28px;  /* Aumenta el tamaño de la descripción */
+    color: #9575CD;  /* Color lila */
+    margin-bottom: 50px;
+}
+
+/* Estilos para las redes sociales */
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;  /* Aumenta el espacio entre las cards */
+}
+
+.social-card {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    padding: 30px;  /* Aumenta el padding dentro de las cards */
+    text-align: center;
+    width: 180px;  /* Aumenta el ancho de las cards */
+    transition: transform 0.3s ease;
+}
+
+.social-card:hover {
+    transform: scale(1.1);  /* Incrementa el efecto hover */
+}
+
+.social-card img {
+    width: 60px;  /* Aumenta el tamaño de los íconos */
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.social-card a {
+    text-decoration: none;
+    color: #F48FB1;
+    font-size: 20px;  /* Aumenta el tamaño del texto */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .header-left h1 {
+        font-size: 50px;  /* Reduce el tamaño del título en móviles */
+    }
+
+    .header-left p {
+        font-size: 22px;  /* Reduce el tamaño de la descripción en móviles */
+    }
+
+    .social-card {
+        width: 140px;  /* Reduce el tamaño de las cards en móviles */
+        padding: 20px;
+    }
+
+    .social-card img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .social-card a {
+        font-size: 18px;
+    }
+}

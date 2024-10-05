@@ -1,0 +1,205 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Arial', sans-serif;
+    background: #f7f3f7;
+    color: #fff;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;  /* Coloca los elementos en fila (horizontalmente) en pantallas grandes */
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    height: 100vh;
+    position: relative;
+    z-index: 10;
+}
+
+.header-left {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.header-left h1 {
+    font-size: 70px;  /* Mantener el tamaño grande para pantallas grandes */
+    color: #7E57C2;
+}
+
+.header-left h1 span {
+    color: #F48FB1;
+}
+
+.header-left p {
+    font-size: 24px;
+    color: #9575CD;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.info-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    text-align: left;
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.369); /* Fondo oscuro semitransparente */
+    color: #fff;
+    padding: 20px;
+    max-width: 400px;  /* Mantener un ancho máximo en pantallas grandes */
+    min-width: 700px;     /* Mantener un ancho mínimo en pantallas grandes */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    margin-left: 0;
+    z-index: 10;
+}
+
+.card h2 {
+    font-size: 32px;
+    color: #F48FB1;
+    margin-bottom: 10px;
+}
+
+.card p, .card ul {
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.card ul li {
+    margin-bottom: 10px;
+}
+
+#networkCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background: radial-gradient(circle at center, #0B0A10, #13121C, #111019);
+}
+/* Estilos del contador en la parte superior derecha */
+.counter-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 15;
+    text-align: center;
+}
+
+#counter-display {
+    font-size: 50px;
+    color: #F48FB1;
+    margin-bottom: 10px;
+}
+
+#start-button {
+    padding: 10px 20px;
+    background-color: #7E57C2;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#start-button:hover {
+    background-color: #9575CD;
+}
+
+/* Transición suave del mensaje y la imagen */
+#thank-you-message {
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #F48FB1;
+    font-size: 80px;
+    text-align: center;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 2s ease-in-out; /* Animación de fade-in */
+}
+
+#thank-you-message.show {
+    opacity: 1; /* Mostrar el mensaje con la animación de transición */
+}
+
+/* Imagen que aparece junto con el mensaje */
+#thank-you-image {
+    border-radius: 7px;
+    max-width: 500px;
+    display: block;
+    margin: 20px auto 0 auto; /* Centrar la imagen debajo del texto */
+    opacity: 0;
+    transition: opacity 2s ease-in-out; /* Mismo efecto de fade-in */
+}
+
+#thank-you-message.show #thank-you-image {
+    opacity: 1; /* Aparece junto con el texto */
+}
+
+
+/* Ocultar el contenido cuando se muestra el mensaje de "Gracias" */
+.hidden {
+    display: none !important;
+}
+
+
+
+
+
+
+
+
+/* Responsiveness - Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* En pantallas pequeñas, cambia a columna */
+        align-items: center; /* Centra los elementos en dispositivos móviles */
+        height: auto;
+        padding: 10px;
+    }
+
+    .header-left {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    .header-left h1 {
+        font-size: 36px;  /* Reducir el tamaño en móviles */
+    }
+
+    .header-left p {
+        font-size: 20px;  /* Reducir el tamaño en móviles */
+    }
+
+    .info-left {
+        width: 100%;
+        text-align: center;
+    }
+
+    .card {
+        max-width: 90%;    /* Asegura que las cards ocupen el 90% del ancho disponible en móviles */
+        min-width: unset;  /* Anula el min-width para evitar problemas de anchura en móviles */
+        margin: 10px auto;
+    }
+}
