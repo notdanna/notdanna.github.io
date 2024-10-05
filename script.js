@@ -16,6 +16,7 @@ if (window.innerWidth < smallScreenThreshold) {
     numNodes = 100; // Más nodos para pantallas más grandes
 }
 
+
 // Definimos los nodos
 let nodes = [];
 const maxDistance = 150;
