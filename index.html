@@ -1,72 +1,613 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Damian's Personal Page</title>
-        <link rel="stylesheet" href="styles.css">
-        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
-        <script src="https://d3js.org/d3.v7.min.js"></script>
-    </head>
-    
+<html lang="en" data-scheme="catppuccin" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>startpage</title>
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <canvas id="networkCanvas"></canvas> <!-- Canvas para el fondo animado -->
+    <div class="container">
+        <!-- Ambient background effects -->
+        <div class="ambient-bg">
+            <div class="glow glow-1"></div>
+            <div class="glow glow-2"></div>
+            <div class="glow glow-3"></div>
+        </div>
 
-    <!-- Envuelve todo el contenido que desaparecerá en esta sección -->
-    <div class="content-wrapper">
-        <div class="container">
-            <!-- Título y cardsasdsa -->
-            <div class="header-left">
-                <h1>Hola, soy <span>Damián</span></h1><p>Fan del OpenSource</p>
-                <p>Entusiasta | Creativo | Detallista</p>
+        <!-- Header with greeting and time -->
+        <header class="header">
+            <div class="greeting">
+                <span class="icon" id="greeting-icon"><i class="fa-solid fa-sun"></i></span>
+                <span class="greeting-text" id="greeting">Good evening, Bryan</span>
+            </div>
+            <div class="header-right">
+                <div class="datetime">
+                    <span class="time" id="time">00:00</span>
+                    <span class="date" id="date">Thursday, Nov 28</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Settings Modal -->
+        <div class="settings-overlay" id="settings-overlay">
+            <div class="settings-modal">
+                <div class="settings-header">
+                    <h3><i class="fa-solid fa-gear"></i> Settings</h3>
+                    <button class="settings-close" id="settings-close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
                 
+                <!-- Settings Tabs -->
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="general">
+                        <i class="fa-solid fa-sliders"></i> General
+                    </button>
+                    <button class="settings-tab" data-tab="appearance">
+                        <i class="fa-solid fa-paintbrush"></i> Appearance
+                    </button>
+                    <button class="settings-tab" data-tab="categories">
+                        <i class="fa-solid fa-folder"></i> Categories
+                    </button>
+                    <button class="settings-tab" data-tab="links">
+                        <i class="fa-solid fa-link"></i> Links
+                    </button>
+                    <button class="settings-tab" data-tab="social">
+                        <i class="fa-solid fa-share-nodes"></i> Social
+                    </button>
+                    <button class="settings-tab" data-tab="header">
+                        <i class="fa-solid fa-arrow-up"></i> Header
+                    </button>
+                    <button class="settings-tab" data-tab="footer">
+                        <i class="fa-solid fa-align-justify"></i> Footer
+                    </button>
+                    <button class="settings-tab" data-tab="help">
+                        <i class="fa-solid fa-circle-question"></i> Help
+                    </button>
+                </div>
 
-            <div class="info-left">
-                <div class="section card">
-                    <h2>Sobre mí</h2>
-                    <p>
-                        Soy egresado del CECyT 8 "Narciso Bassols" del IPN. En este momento, estoy enfocado en aprender nuevas tecnologías y mejorar mis habilidades en el uso de contenedores y servicios de Linux.
-                    </p>
-                </div>
-                <div class="section card">
-                    <h2>Habilidades</h2>
-                    <ul>
-                        <li>HTML, CSS, JavaScript, TypeScript</li>
-                        <li>Node.js, Python, C++</li>
-                        <li>PostgreSQL, MySQL</li>
-                        <li>Bash & Linux </li>
-                        <li>Docker, Git</li>
-                        <li>CNC</li>
-                    </ul>
-                </div>
-                <div class="section card">
-                    <h2>Proyectos</h2>
-                    <ul>
-                        <li><strong>Cálculo de series:</strong> Una calculadora inteligente para resolver series de cualquier tipo en Python e IA.</li>
-                        <li><strong>Analizador sintáctico:</strong> Se diseñó una gramatica para el manejo de lenguaje de Java usando AFD.</li>
-                        <li><strong>Servicio de administración de libros:</strong> Espacio para el manejo de libros/mangas/comics en la nube hecho con Java, Docker y SQLite.</li>
-                    </ul>
+                <div class="settings-body">
+                    <!-- General Tab -->
+                    <div class="settings-panel active" data-panel="general">
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-user"></i>
+                                <span>Your Name (optional)</span>
+                            </div>
+                            <input type="text" id="setting-name" class="setting-input" placeholder="Enter your name" maxlength="20">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-clock"></i>
+                                <span>Time Format (Click time to toggle)</span>
+                            </div>
+                            <div class="setting-toggle">
+                                <button class="toggle-btn" data-setting="timeFormat" data-value="12">12hr</button>
+                                <button class="toggle-btn" data-setting="timeFormat" data-value="24">24hr</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-stopwatch"></i>
+                                <span>Show Seconds</span>
+                            </div>
+                            <div class="setting-toggle">
+                                <button class="toggle-btn" data-setting="showSeconds" data-value="true"><i class="fa-solid fa-eye"></i> Show</button>
+                                <button class="toggle-btn" data-setting="showSeconds" data-value="false"><i class="fa-solid fa-eye-slash"></i> Hide</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-temperature-half"></i>
+                                <span>Temperature</span>
+                            </div>
+                            <div class="setting-toggle">
+                                <button class="toggle-btn" data-setting="tempUnit" data-value="F">°F</button>
+                                <button class="toggle-btn" data-setting="tempUnit" data-value="C">°C</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                <span>Open Links In</span>
+                            </div>
+                            <div class="setting-toggle" id="link-behavior-toggle">
+                                <button class="toggle-btn" data-setting="linkBehavior" data-value="same">Same Tab</button>
+                                <button class="toggle-btn" data-setting="linkBehavior" data-value="new-tab">New Tab</button>
+                                <button class="toggle-btn" data-setting="linkBehavior" data-value="new-window" id="new-window-btn">New Window</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-keyboard"></i>
+                                <span>Keyboard Shortcuts</span>
+                            </div>
+                            <div class="setting-toggle">
+                                <button class="toggle-btn" data-setting="showKeyboardHints" data-value="true"><i class="fa-solid fa-eye"></i> Show</button>
+                                <button class="toggle-btn" data-setting="showKeyboardHints" data-value="false"><i class="fa-solid fa-eye-slash"></i> Hide</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-compress"></i>
+                                <span>Layout Density</span>
+                            </div>
+                            <div class="setting-toggle">
+                                <button class="toggle-btn" data-setting="density" data-value="comfy"><i class="fa-solid fa-arrows-left-right"></i> Comfy</button>
+                                <button class="toggle-btn" data-setting="density" data-value="compact"><i class="fa-solid fa-compress-arrows-alt"></i> Compact</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-map-marker-alt"></i>
+                                <span>Weather Location</span>
+                            </div>
+                            <input type="text" id="setting-weather-location" class="setting-input" placeholder="Chicago,IL,US">
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-key"></i>
+                                <span>OpenWeather API Key (<a href="https://openweathermap.org" target="_blank">openweathermap.org</a>)</span>
+                            </div>
+                            <input type="text" id="setting-weather-api-key" class="setting-input" placeholder="Enter key">
+                        </div>
+                        
+                        <div class="setting-item setting-item-vertical">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <span>Search Engines</span>
+                            </div>
+                            <div class="search-engine-grid" id="search-engine-options">
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="google" checked>
+                                    <span class="engine-icon"><i class="fa-brands fa-google"></i></span>
+                                    <span>Google</span>
+                                </label>
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="duckduckgo" checked>
+                                    <span class="engine-icon"><span class="nf-icon">󰇥</span></span>
+                                    <span>DuckDuckGo</span>
+                                </label>
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="github" checked>
+                                    <span class="engine-icon"><i class="fa-brands fa-github"></i></span>
+                                    <span>GitHub</span>
+                                </label>
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="git" checked>
+                                    <span class="engine-icon"><i class="fa-brands fa-git-alt"></i></span>
+                                    <span>Git</span>
+                                </label>
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="youtube" checked>
+                                    <span class="engine-icon"><i class="fa-brands fa-youtube"></i></span>
+                                    <span>YouTube</span>
+                                </label>
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="bing">
+                                    <span class="engine-icon"><i class="fa-brands fa-microsoft"></i></span>
+                                    <span>Bing</span>
+                                </label>
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="amazon">
+                                    <span class="engine-icon"><i class="fa-brands fa-amazon"></i></span>
+                                    <span>Amazon</span>
+                                </label>
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="wikipedia">
+                                    <span class="engine-icon"><i class="fa-brands fa-wikipedia-w"></i></span>
+                                    <span>Wikipedia</span>
+                                </label>
+                                <label class="engine-checkbox">
+                                    <input type="checkbox" data-engine="archive">
+                                    <span class="engine-icon"><i class="fa-solid fa-box-archive"></i></span>
+                                    <span>Internet Archive</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item setting-item-vertical">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Backup & Restore</span>
+                            </div>
+                            <p class="setting-description">Export or import all your settings, categories, and links.</p>
+                            <div class="backup-buttons">
+                                <button id="backup-button" class="backup-btn">
+                                    <i class="fa-solid fa-file-export"></i> Export Settings
+                                </button>
+                                <button id="restore-button" class="backup-btn">
+                                    <i class="fa-solid fa-file-import"></i> Import Settings
+                                </button>
+                                <input type="file" id="restore-file-input" accept=".json" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Appearance Tab -->
+                    <div class="settings-panel" data-panel="appearance">
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-palette"></i>
+                                <span>Color Scheme</span>
+                            </div>
+                            <select id="color-scheme-select" class="setting-select">
+                                <option value="catppuccin">Catppuccin</option>
+                                <option value="nord">Nord</option>
+                                <option value="gruvbox">Gruvbox</option>
+                                <option value="tokyo-night">Tokyo Night</option>
+                                <option value="dracula">Dracula</option>
+                                <option value="solarized">Solarized</option>
+                                <option value="kanagawa">Kanagawa</option>
+                                <option value="ayu">Ayu</option>
+                                <option value="monochrome">Monochrome</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item" id="custom-colors-section" style="display: none;">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-droplet"></i>
+                                <span>Custom Colors</span>
+                            </div>
+                            <div class="custom-colors-grid">
+                                <div class="color-input-group">
+                                    <label>Primary</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="custom-primary" value="#cba6f7">
+                                        <input type="text" class="hex-input" id="custom-primary-hex" value="#cba6f7" maxlength="7">
+                                    </div>
+                                </div>
+                                <div class="color-input-group">
+                                    <label>Secondary</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="custom-secondary" value="#89b4fa">
+                                        <input type="text" class="hex-input" id="custom-secondary-hex" value="#89b4fa" maxlength="7">
+                                    </div>
+                                </div>
+                                <div class="color-input-group">
+                                    <label>Accent</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="custom-accent" value="#94e2d5">
+                                        <input type="text" class="hex-input" id="custom-accent-hex" value="#94e2d5" maxlength="7">
+                                    </div>
+                                </div>
+                                <div class="color-input-group">
+                                    <label>Background</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="custom-background" value="#1e1e2e">
+                                        <input type="text" class="hex-input" id="custom-background-hex" value="#1e1e2e" maxlength="7">
+                                    </div>
+                                </div>
+                                <div class="color-input-group">
+                                    <label>Surface</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="custom-surface" value="#313244">
+                                        <input type="text" class="hex-input" id="custom-surface-hex" value="#313244" maxlength="7">
+                                    </div>
+                                </div>
+                                <div class="color-input-group">
+                                    <label>Text</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="custom-text" value="#cdd6f4">
+                                        <input type="text" class="hex-input" id="custom-text-hex" value="#cdd6f4" maxlength="7">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-circle-half-stroke"></i>
+                                <span>Mode</span>
+                            </div>
+                            <div class="setting-toggle">
+                                <button class="toggle-btn" data-setting="theme" data-value="dark"><i class="fa-solid fa-moon"></i> Dark</button>
+                                <button class="toggle-btn" data-setting="theme" data-value="light"><i class="fa-solid fa-sun"></i> Light</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-swatchbook"></i>
+                                <span>Category Colors</span>
+                            </div>
+                            <div class="setting-toggle" id="color-mode-toggle">
+                                <button class="toggle-btn" data-setting="colorMode" data-value="multi"><i class="fa-solid fa-rainbow"></i> Multi</button>
+                                <button class="toggle-btn" data-setting="colorMode" data-value="single"><i class="fa-solid fa-circle"></i> Single</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-image"></i>
+                                <span>Background Image</span>
+                            </div>
+                            <div class="background-image-controls">
+                                <button class="file-picker-btn" id="background-image-btn">
+                                    <i class="fa-solid fa-file-image"></i> Choose Image
+                                </button>
+                                <input type="file" id="background-image-input" accept="image/*" style="display: none;">
+                                <button class="file-picker-btn remove-btn" id="remove-background-btn" style="display: none;">
+                                    <i class="fa-solid fa-xmark"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item" id="background-size-section" style="display: none;">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-expand"></i>
+                                <span>Background Size</span>
+                            </div>
+                            <select id="background-size-select" class="setting-select">
+                                <option value="cover">Cover (Fill, may crop)</option>
+                                <option value="contain">Contain (Fit, no crop)</option>
+                                <option value="stretch">Stretch (Fill, may distort)</option>
+                                <option value="auto">Original Size</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item" id="background-blur-section" style="display: none;">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-droplet-slash"></i>
+                                <span>Background Blur</span>
+                            </div>
+                            <div class="setting-toggle">
+                                <button class="toggle-btn" data-setting="backgroundBlur" data-value="false"><i class="fa-solid fa-xmark"></i> Off</button>
+                                <button class="toggle-btn" data-setting="backgroundBlur" data-value="true"><i class="fa-solid fa-check"></i> On</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item" id="background-preview-section" style="display: none;">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-eye"></i>
+                                <span>Preview</span>
+                            </div>
+                            <div class="background-preview-container">
+                                <img id="background-preview" src="" alt="Background preview">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories Tab -->
+                    <div class="settings-panel" data-panel="categories">
+                        <p class="panel-description">Add up to 8 categories. Assign an icon with text, or leave the icon field blank for text only.</p>
+                        <div class="categories-list" id="categories-list">
+                            <!-- Categories will be populated dynamically -->
+                        </div>
+                        <button class="add-btn" id="add-category-btn">
+                            <i class="fa-solid fa-plus"></i> Add Category
+                        </button>
+                    </div>
+                    
+                    <!-- Links Tab -->
+                    <div class="settings-panel" data-panel="links">
+                        <p class="panel-description">Select a category, then add up to 10 links.</p>
+                        <div class="category-selector">
+                            <label for="link-category-select">Category:</label>
+                            <select id="link-category-select" class="setting-select">
+                                <option value="">-- Select a category --</option>
+                            </select>
+                        </div>
+                        <div class="links-list" id="links-list">
+                            <!-- Links will be populated dynamically -->
+                        </div>
+                        <button class="add-btn" id="add-link-btn" disabled>
+                            <i class="fa-solid fa-plus"></i> Add Link
+                        </button>
+                    </div>
+                    
+                    <!-- Social Links Tab -->
+                    <div class="settings-panel" data-panel="social">
+                        <p class="panel-description">Configure your social media links to display in the footer.</p>
+                        <div class="social-links-list" id="social-links-list">
+                            <!-- Social links will be populated dynamically -->
+                        </div>
+                    </div>
+                    
+                    <!-- Header Tab -->
+                    <div class="settings-panel" data-panel="header">
+                        <p class="panel-description">Customize the header layout by selecting what to display in each section.</p>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-align-left"></i>
+                                <span>Left Widget</span>
+                            </div>
+                            <select id="header-left-select" class="setting-select" data-setting="headerLeft">
+                                <option value="greeting">Greeting</option>
+                                <option value="time-date">Time & Date</option>
+                                <option value="blank">Blank</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-align-right"></i>
+                                <span>Right Widget</span>
+                            </div>
+                            <select id="header-right-select" class="setting-select" data-setting="headerRight">
+                                <option value="greeting">Greeting</option>
+                                <option value="time-date">Time & Date</option>
+                                <option value="blank">Blank</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer Tab -->
+                    <div class="settings-panel" data-panel="footer">
+                        <p class="panel-description">Customize the footer layout by selecting what to display in each section.</p>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-align-left"></i>
+                                <span>Left Section</span>
+                            </div>
+                            <select id="footer-left-select" class="setting-select">
+                                <option value="blank">Blank</option>
+                                <option value="weather">Weather</option>
+                                <option value="forecast">3-Day Forecast</option>
+                                <option value="socials">Social Links</option>
+                                <option value="quotes">Quotes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-align-center"></i>
+                                <span>Center Section</span>
+                            </div>
+                            <select id="footer-center-select" class="setting-select">
+                                <option value="blank">Blank</option>
+                                <option value="weather">Weather</option>
+                                <option value="forecast">3-Day Forecast</option>
+                                <option value="socials">Social Links</option>
+                                <option value="quotes">Quotes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-align-right"></i>
+                                <span>Right Section</span>
+                            </div>
+                            <select id="footer-right-select" class="setting-select">
+                                <option value="blank">Blank</option>
+                                <option value="weather">Weather</option>
+                                <option value="forecast">3-Day Forecast</option>
+                                <option value="socials">Social Links</option>
+                                <option value="quotes">Quotes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item-vertical">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-quote-left"></i>
+                                <span>Custom Quotes</span>
+                            </div>
+                            <div id="quotes-list"></div>
+                            <button id="add-quote-btn" class="add-btn">
+                                <i class="fa-solid fa-plus"></i> Add Quote
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Help Tab -->
+                    <div class="settings-panel" data-panel="help">
+                        <section class="help-section">
+                            <h4><i class="fa-solid fa-icons"></i> Customizing Icons</h4>
+                            <p>This startpage uses <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome</a> icons. You can customize icons for categories and links in Settings.</p>
+                        </section>
+                        
+                        <section class="help-section">
+                            <h4><i class="fa-solid fa-magnifying-glass"></i> Step 1: Find an Icon</h4>
+                            <ol class="help-steps">
+                                <li>Go to <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">fontawesome.com/search</a></li>
+                                <li>Type a keyword in the search box (e.g., "linux", "music", "cloud")</li>
+                                <li>Click the <strong>"Free"</strong> filter button on the right side to show only free icons</li>
+                                <li>Click on the icon you want to use</li>
+                            </ol>
+                        </section>
+                        
+                        <section class="help-section">
+                            <h4><i class="fa-solid fa-copy"></i> Step 2: Copy the Icon Code</h4>
+                            <ol class="help-steps">
+                                <li>After clicking an icon, a popup will appear</li>
+                                <li>Look for the HTML code that looks like: <code>&lt;i class="fa-brands fa-linux"&gt;&lt;/i&gt;</code></li>
+                                <li>Copy <strong>only the class value</strong> — the part inside the quotes</li>
+                                <li>For example, copy: <code>fa-brands fa-linux</code></li>
+                            </ol>
+                        </section>
+                        
+                        <section class="help-section">
+                            <h4><i class="fa-solid fa-paste"></i> Step 3: Use in Settings</h4>
+                            <ol class="help-steps">
+                                <li>Open Settings <i class="fa-solid fa-gear"></i> and go to the Categories or Links tab</li>
+                                <li>Paste the icon code into the icon field (the first input box)</li>
+                                <li>You'll see a live preview of your icon appear</li>
+                            </ol>
+                        </section>
+                        
+                        <section class="help-section">
+                            <h4><i class="fa-solid fa-lightbulb"></i> Examples</h4>
+                            <ul class="icon-examples">
+                                <li><code>fa-solid fa-code</code> → <i class="fa-solid fa-code"></i> (solid style)</li>
+                                <li><code>fa-brands fa-github</code> → <i class="fa-brands fa-github"></i> (brand logo)</li>
+                                <li><code>fa-solid fa-gamepad</code> → <i class="fa-solid fa-gamepad"></i></li>
+                                <li><code>fa-brands fa-spotify</code> → <i class="fa-brands fa-spotify"></i></li>
+                            </ul>
+                            <p class="help-tip"><strong>Tip:</strong> Use <code>fa-solid</code> for general icons or <code>fa-brands</code> for company/brand logos.</p>
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="image-right">
-            <img src="/img/socialm.png" alt="Imagen descriptiva">
+
+        <!-- Search Bar -->
+        <div class="search-row">
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" id="search" placeholder="Search the web..." autocomplete="off" autofocus>
+                    <div class="search-engines">
+                        <button class="engine active" data-engine="google" title="Google"><i class="fa-brands fa-google"></i></button>
+                        <button class="engine" data-engine="duckduckgo" title="DuckDuckGo"><span class="nf-icon">󰇥</span></button>
+                        <button class="engine" data-engine="github" title="GitHub"><i class="fa-brands fa-github"></i></button>
+                        <button class="engine" data-engine="youtube" title="YouTube"><i class="fa-brands fa-youtube"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="toolbar-btns">
+                <button class="toolbar-btn" id="settings-btn" title="Settings">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Links Grid -->
+        <main class="links-grid" id="links-grid">
+            <!-- Categories and links will be populated dynamically -->
+        </main>
+
+        <!-- Footer Widget -->
+        <footer class="footer">
+            <div class="widget weather-widget">
+                <span class="widget-icon"><i class="fa-solid fa-cloud-sun"></i></span>
+                <span class="widget-text" id="weather">Loading...</span>
+            </div>
+            <div class="widget quote-widget">
+                <span class="widget-icon"><i class="fa-solid fa-quote-left"></i></span>
+                <span class="widget-text" id="quote">"The only way to do great work is to love what you do."</span>
+            </div>
+        </footer>
+
+        <!-- Keyboard Hints -->
+        <div class="keyboard-hints">
+            <span class="hint"><kbd>/</kbd> Search</span>
+            <span class="hint"><kbd>1-9</kbd> Engine</span>
+            <span class="hint"><kbd>Esc</kbd> Clear</span>
+        </div>
+        
+        <!-- Developer Credits -->
+        <div class="developer-credits">
+            <div class="credits-content">
+                <span class="credits-text">© 2026 Vegvisir Design - MIT License</span>
+            </div>
         </div>
     </div>
 
-    <!-- Contador y botón de inicio -->
-    <div class="counter-container">
-        <div id="counter-display">3:00</div>
-        <button id="start-button">Start Timer</button>
-    </div>
-    </div>
-
-    <!-- Mensaje de "Gracias" con partículas e imagen -->
-    <div id="thank-you-message" style="display: none;">
-        <h1>Gracias</h1>
-        <img id="thank-you-image" src="/img/anime.gif" alt="Gracias Imagen"> <!-- Imagen que aparecerá -->
-    </div>
-
-    <script src="script.js"></script> <!-- Lógica del fondo animado con D3.js y del temporizador -->
+    <script src="script.js"></script>
 </body>
 </html>
